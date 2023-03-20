@@ -1,16 +1,15 @@
+document.addEventListener('DOMContentLoaded', function() {
+    function copyClipboard(event) {
+        const clipboard = document.createElement('textarea');
+        clipboard.value = event.target.previousElementSibling.value;
+        event.target.appendChild(clipboard);
+        clipboard.select();
+        document.execCommand('copy');
+        event.target.removeChild(clipboard);
+    }
 
-let copy_text = document.querySelector('textarea').textContent;
-
-let copy_btn = document.querySelector('#copy-btn');
-
-let output = document.querySelector('#output');
-
-copy_btn.addEventListener(`click`, () => {
-
-	navigator.clipboard.writeText(copy_text).then(() => {
-		output.textContent = 'Copied it to the clipboard.';
-	}, () => {
-		output.textContent = 'Could not copy.';
-	});
-
+    const buttons = document.getElementsByClassName('copy_clipboard');
+    for(let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', copyClipboard);
+    }
 });
